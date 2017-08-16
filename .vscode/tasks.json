@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "MinGW Build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp",
+                "-static",
+                "-o", "${workspaceRoot}/build/snake.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
