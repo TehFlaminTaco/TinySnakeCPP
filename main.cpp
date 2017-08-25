@@ -14,10 +14,12 @@ DIR wormDir = NORTH;
 int food_x = 0;
 int food_y = 0;
 int RUN_SPEED = 100;
+int SCORE = 0;
 
 void updateTerminal(){
     SetConsoleCursorPosition(terminal, zerodCoord);
     WriteConsoleA(terminal, MAP -> entry, MAP -> size, &dump, NULL);
+    std::cout << "Score: " << SCORE;
 }
 
 void updateDraw(){
@@ -50,6 +52,7 @@ bool wormOnFood(){
 void eatFood(){
     if (WORM -> x == food_x && WORM -> y == food_y){
         WORM -> pushTail();
+        SCORE++;
         moveFood();
         while(wormOnFood()){
             moveFood();
@@ -80,17 +83,23 @@ bool checkWorm(){
     return false;
 }
 
+void sleep(double t, void (*f)()){
+    long start = clock();
+    while(clock()-start<t){
+        f();
+    }
+}
+
 bool loop(){
     if(GetKeyState(VK_ESCAPE) & 0x8000)
         return false;
-    rotateWorm();
     WORM -> moveDir(wormDir);
     if(checkWorm())
         return false;
     eatFood();
     updateDraw();
     updateTerminal();
-    Sleep(RUN_SPEED);
+    sleep(RUN_SPEED, rotateWorm);
     return true;
 }
 
