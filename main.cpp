@@ -134,9 +134,9 @@ int main(int argc, char* argv[]){
 
     MAP = new charmap(gameWidth, gameHeight, ' ');
     WORM = new worm(5, 5, MAP);
-    for(int i=0; i < 2; i++){
+    /*for(int i=0; i < 2; i++){
         WORM -> pushTail();
-    }
+    }*/
     MAP -> rectangle(false, '#', 0, 0, MAP -> width, MAP -> height);
     moveFood();
 
